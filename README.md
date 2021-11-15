@@ -8,7 +8,7 @@ gem "mechanize"
 ```
 # フロー
 ## 1
-jPOSTrepoサーバのxmlデータ(ex.https://repository.jpostdb.org/xml/JPST000855.0.xml)を読み込み、`PXID` `CreatedDate` `PrincipalInvestigator` `Submitter` `Keywords` などを取得します。
+jPOSTrepoサーバのxmlデータ(ex.https://repository.jpostdb.org/xml/JPST000855.0.xml )を読み込み、`PXID` `CreatedDate` `PrincipalInvestigator` `Submitter` `Keywords` などを取得します。
 
 ```ruby
 JPST000855
