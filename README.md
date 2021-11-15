@@ -48,4 +48,7 @@ http://www.ncbi.nlm.nih.gov/pubmed/33243834
 http://www.ncbi.nlm.nih.gov/pubmed/32660330
 ["sm", "metabolism"]
 ```
+# 補足
+main.rb: 一件ずつ検索を行います。
+main_all.rb: `jpostid.txt`に記載された`jPOST id`を連続して検索を行い(件数が多いとgoogleにはじかれます)、`result.txt`に検索結果を出力します。
 
