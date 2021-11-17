@@ -37,9 +37,7 @@ def google_scholar(jpst)
   anchor_pmc = []
   anchor_full = []
   anchor_else = []
-  agent = Mechanize.new
-  agent.user_agent_alias = 'Windows Mozilla'
-  page = agent.get(url)
+  page = @agent.get(url)
   page.search('a').each do |anchor|
     next if anchor[:href].include?('javascript') || anchor[:href].include?('google') || anchor[:href][0] == '/' || anchor[:href].include?('https://scholar')
     if anchor[:href][-3, 3].upcase == 'PDF'
@@ -66,19 +64,19 @@ def get_jpost(id)
   puts '**jpost**'
   puts id
   
-  agent = Mechanize.new
-  agent.user_agent_alias = 'Windows Mozilla'
+  @agent = Mechanize.new
+  @agent.user_agent_alias = 'Windows Mozilla'
   page = ''
   f = false
   100.times do |rev|
-    if agent.get(jpost_rev(id, rev)).search('title')[0].to_s.include?('jPOSTrepo')
+    if @agent.get(jpost_rev(id, rev)).search('title')[0].to_s.include?('jPOSTrepo')
       if f
         break
       else
         next
       end
     end
-    page = agent.get(jpost_rev(id, rev))
+    page = @agent.get(jpost_rev(id, rev))
     f = true
   end
 
@@ -108,7 +106,7 @@ def main()
   id = 'JPST' + format("%06d", gets.chomp)
   get_jpost id
 
-  # google_scholar(id)
+  google_scholar(id)
 
   sdate = Date.parse(@createdDate[0, 8] + '01')
   
