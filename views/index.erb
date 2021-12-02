@@ -13,8 +13,10 @@
   <%= @keywords %><p>
 --- google scholar ---<br>
   <a href=<%= @gurl %> target="_blank" rel="noopener noreferrer"><%= @gurl %></a><br><br>
+  <% if @ganchors %>
   <% @ganchors.each do |anchor| %>
   <a href=<%= anchor %> target="_blank" rel="noopener noreferrer"><%= anchor %></a><br>
+  <% end %>
   <% end %><p>
 ------- PubMed -------<br>
   <%= "from " + @mindate if @mindate %><%= " to " + @maxdate if @maxdate %><br>
