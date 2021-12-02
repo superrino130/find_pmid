@@ -98,6 +98,7 @@ def google_scholar(jpst)
 end
 
 def pubmed_search()
+  return if @jpost_info[:createdDate].nil?
   sdate = Date.parse(@jpost_info[:createdDate][0, 8] + '01')
   
   @pubmed_id[:maxdate] = sdate.next_month(13).strftime("%Y/%m/%d")
@@ -176,7 +177,7 @@ post '/jpost_search' do
     @mindate = @pubmed_id[:mindate]
     @maxdate = @pubmed_id[:maxdate]
     @pubmedidsize = @pubmed_id[:size]
-    if @pubmedidsize < 100
+    if @pubmedidsize && @pubmedidsize < 100
       @pubmedids = @ids
     end  
   end
