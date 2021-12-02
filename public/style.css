@@ -1,0 +1,34 @@
+h1 {
+    color: brown;
+}
+body {
+    background-color: lightyellow;
+}
+.container {
+    margin: 0 auto;
+    text-align: left;
+}
+.container label {
+    cursor: pointer;
+    padding: 0 10px;
+}
+.container input {
+    height: auto;
+    padding: 0 0 0 20px;
+    background-color: lightsalmon;
+    border-width: 1px;
+    border-color: chocolate;
+    border-radius: 5px;
+}
+.btn {
+    text-align: left;
+    display: block;
+    width: 80px;
+    margin: 0;
+}
+.btm {
+    transition: 0.2s;
+    height: 0;
+    overflow: hidden;
+    padding: 0 0 0 20px;
+}

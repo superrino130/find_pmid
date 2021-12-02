@@ -23,6 +23,9 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0901)
+    multi_json (1.15.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
@@ -30,7 +33,25 @@ GEM
       racc (~> 1.4)
     public_suffix (4.0.6)
     racc (1.6.0)
+    rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
+    rack_csrf (2.6.0)
+      rack (>= 1.1.0)
+    ruby2_keywords (0.0.5)
     rubyntlm (0.6.3)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+    sinatra-contrib (2.1.0)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.1.0)
+      sinatra (= 2.1.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8-x64-mingw32)
@@ -43,6 +64,9 @@ PLATFORMS
 DEPENDENCIES
   bio
   mechanize
+  rack_csrf
+  sinatra
+  sinatra-contrib
 
 BUNDLED WITH
    2.2.22

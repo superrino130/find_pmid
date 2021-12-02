@@ -6,3 +6,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem "bio"
 gem "mechanize"
+gem "sinatra"
+gem "sinatra-contrib"
+

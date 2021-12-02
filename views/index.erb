@@ -1,0 +1,28 @@
+<%# ユーザー登録 %>
+<div class="user_form">
+  <form action="/jpost_search" method = "post">
+    <span>input jPOST id (ex. JPST000855 => 855)</span><br>
+    <input type="text" name="inputedid" class="user_input_box">
+    <input type="submit" value="search" class="btn btn_user">
+  </form>
+</div>
+<br>
+<div class="jpost_info">
+----- jPOST info -----<br>
+  <%= @id %> <%= @pxid if @pxid.nil?.! %><br><%= " pi:" + @pi if @pi.nil?.! %><%= " sm:" + @sm if @sm.nil?.! %><br>
+  <%= @keywords %><p>
+--- google scholar ---<br>
+  <a href=<%= @gurl %> target="_blank" rel="noopener noreferrer"><%= @gurl %></a><br><br>
+  <% @ganchors.each do |anchor| %>
+  <a href=<%= anchor %> target="_blank" rel="noopener noreferrer"><%= anchor %></a><br>
+  <% end %><p>
+------- PubMed -------<br>
+  <%= "from " + @mindate if @mindate %><%= " to " + @maxdate if @maxdate %><br>
+  <%= "Over 100" if @pubmedidsize && @pubmedidsize >= 100 %>
+  <% if @pubmedids %>
+  <% @pubmedids.sort_by{ -_2.size }.each do |k, v| %>
+  <a href=<%= "http://www.ncbi.nlm.nih.gov/pubmed/" + k %> target="_blank" rel="noopener noreferrer"><%= k %></a><br>
+  <%= v %><br>
+  <% end %>
+  <% end %>
+</div>
