@@ -82,7 +82,7 @@ def google_scholar(jpst)
   begin
     page = @agent.get(url)    
   rescue => exception
-    @google_scholar[:anchor] = ["error"]
+    @google_scholar[:anchor] = ["errorが発生しましたので、上のgoogle scholarのリンクを開いてください"]
     return
   end
   page.search('a').each do |anchor|
