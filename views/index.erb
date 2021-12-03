@@ -9,7 +9,8 @@
 <br>
 <div class="jpost_info">
 ----- jPOST info -----<br>
-  <%= @id %> <%= @pxid if @pxid.nil?.! %><br><%= " pi:" + @pi if @pi.nil?.! %><%= " sm:" + @sm if @sm.nil?.! %><br>
+  <a href=<%= "https://repository.jpostdb.org/entry/" + @id %> target="_blank" rel="noopener noreferrer"><%= @id %></a>
+  <%= @pxid if @pxid.nil?.! %><br><%= " pi:" + @pi if @pi.nil?.! %><%= " sm:" + @sm if @sm.nil?.! %><br>
   <%= @keywords %><p>
 --- google scholar ---<br>
   <a href=<%= @gurl %> target="_blank" rel="noopener noreferrer"><%= @gurl %></a><br><br>
