@@ -79,7 +79,11 @@ def google_scholar(jpst)
   anchor_pmc = []
   anchor_full = []
   anchor_else = []
-  page = @agent.get(url)
+  begin
+    page = @agent.get(url)    
+  rescue => exception
+    return
+  end
   page.search('a').each do |anchor|
     next if anchor[:href].include?('javascript') || anchor[:href].include?('google') || anchor[:href][0] == '/' || anchor[:href].include?('https://scholar')
     if anchor[:href][-3, 3].upcase == 'PDF'
