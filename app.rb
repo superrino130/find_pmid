@@ -178,33 +178,34 @@ post '/jpost_search' do
   @stime = Time.now
   @jpost_info = {}
   get_jpost(params[:inputedid])
-  if @jpost_info[:id].!
+  if @jpost_info && @jpost_info.size > 1
+    @id = @jpost_info[:id]
+    @pxid = @jpost_info[:pxid]
+    @pi = @jpost_info[:pi]
+    @sm = @jpost_info[:sm]
+    @keywords = @jpost_info[:keywords]
+    @google_scholar = {}
+    google_scholar(@id)
+    @gurl = @google_scholar[:url]
+    @ganchors = @google_scholar[:anchor]
+    @pubmed_id = {}
+    begin
+      if @gurl
+        pubmed_search()
+        @mindate = @pubmed_id[:mindate]
+        @maxdate = @pubmed_id[:maxdate]
+        @timeover = @tover
+        @pubmedidsize = @pubmed_id[:size]
+        if @pubmedidsize && @pubmedidsize < 100
+          @pubmedids = @ids
+        end  
+      end      
+    rescue => exception
+      # PASS
+    end
+
+    erb :index
+  else
     redirect('/')
   end
-  @id = @jpost_info[:id]
-  @pxid = @jpost_info[:pxid]
-  @pi = @jpost_info[:pi]
-  @sm = @jpost_info[:sm]
-  @keywords = @jpost_info[:keywords]
-  @google_scholar = {}
-  google_scholar(@id)
-  @gurl = @google_scholar[:url]
-  @ganchors = @google_scholar[:anchor]
-  @pubmed_id = {}
-  begin
-    if @gurl
-      pubmed_search()
-      @mindate = @pubmed_id[:mindate]
-      @maxdate = @pubmed_id[:maxdate]
-      @timeover = @tover
-      @pubmedidsize = @pubmed_id[:size]
-      if @pubmedidsize && @pubmedidsize < 100
-        @pubmedids = @ids
-      end  
-    end      
-  rescue => exception
-    # PASS
-  end
-
-  erb :index
 end
