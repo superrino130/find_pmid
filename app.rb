@@ -173,6 +173,9 @@ end
 post '/jpost_search' do
   @jpost_info = {}
   get_jpost(params[:inputedid])
+  if @jpost_info[:id].!
+    redirect('/')
+  end
   @id = @jpost_info[:id]
   @pxid = @jpost_info[:pxid]
   @pi = @jpost_info[:pi]
