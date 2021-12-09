@@ -13,7 +13,7 @@
   <a href=<%= "https://repository.jpostdb.org/entry/" + @id %> target="_blank" rel="noopener noreferrer"><%= @id %></a>
   <% end %>
   <%= @pxid if @pxid.nil?.! %><br><%= " pi:" + @pi if @pi.nil?.! %><%= " sm:" + @sm if @sm.nil?.! %><br>
-  <%= @keywords %><p>
+  <%= @keywords if @keywords.nil?.! %><p>
 --- google scholar ---<br>
   <a href=<%= @gurl %> target="_blank" rel="noopener noreferrer"><%= @gurl %></a><br><br>
   <% if @ganchors %>
@@ -23,7 +23,7 @@
   <% end %><p>
 ------- PubMed -------<br>
   <%= "from " + @mindate if @mindate %><%= " to " + @maxdate if @maxdate %><br>
-  <%= "Over 100" if @pubmedidsize && @pubmedidsize >= 100 %>
+  <%= @pubmedidsize.to_s.concat(' Papers Hit') if @pubmedidsize %><br>
   <%= "TimeOver 25s" if @TimeOver %>
   <% if @pubmedids %>
   <% @pubmedids.sort_by{ -_2.size }.each do |k, v| %>
