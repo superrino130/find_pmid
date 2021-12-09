@@ -30,6 +30,10 @@ def get_jpost(id)
     end
     page = @agent.get(jpost_rev(id, rev))
     f = true
+    if Time.now - @stime > 25
+      @tover = true
+      break
+    end
     sleep 0.1
   end
 
@@ -106,7 +110,6 @@ end
 def pubmed_search()
   return if @jpost_info[:createdDate].nil?
   sdate = Date.parse(@jpost_info[:createdDate][0, 8] + '01')
-  stime = Time.now
   
   @pubmed_id[:maxdate] = sdate.next_month(13).strftime("%Y/%m/%d")
   @pubmed_id[:mindate] = sdate.prev_month.strftime("%Y/%m/%d")
@@ -137,8 +140,7 @@ def pubmed_search()
   @ids.each do |k, v|
     @ids[k] = keywords_count(k, v)
     sleep 0.5
-    if Time.now - stime > 20
-      p Time.now
+    if Time.now - @stime > 25
       @tover = true
       break
     end
@@ -173,6 +175,7 @@ def keywords_count(id, v)
 end
 
 post '/jpost_search' do
+  @stime = Time.now
   @jpost_info = {}
   get_jpost(params[:inputedid])
   if @jpost_info[:id].!
