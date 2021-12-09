@@ -105,6 +105,7 @@ end
 def pubmed_search()
   return if @jpost_info[:createdDate].nil?
   sdate = Date.parse(@jpost_info[:createdDate][0, 8] + '01')
+  stime = Time.now
   
   @pubmed_id[:maxdate] = sdate.next_month(13).strftime("%Y/%m/%d")
   @pubmed_id[:mindate] = sdate.prev_month.strftime("%Y/%m/%d")
@@ -120,20 +121,25 @@ def pubmed_search()
     Bio::PubMed.esearch(@pi, options).each do |x|
       @ids[x] += 1
     end
-    sleep 1
+    sleep 0.5
   end
   
   if @sm != '' && @pi != @sm
     Bio::PubMed.esearch(@sm, options).each do |x|
       @ids[x] += 2
     end
-    sleep 1
+    sleep 0.5
   end
   @pubmed_id[:size] = @ids.size
 
+  @tover = false
   @ids.each do |k, v|
     @ids[k] = keywords_count(k, v)
-    sleep 1
+    sleep 0.5
+    if Time.now - stime > 25
+      @tover = true
+      break
+    end
   end
   
   @ids.sort_by{ -_2.size }.each do |k, v|
@@ -177,14 +183,19 @@ post '/jpost_search' do
   @gurl = @google_scholar[:url]
   @ganchors = @google_scholar[:anchor]
   @pubmed_id = {}
-  if @gurl
-    pubmed_search()
-    @mindate = @pubmed_id[:mindate]
-    @maxdate = @pubmed_id[:maxdate]
-    @pubmedidsize = @pubmed_id[:size]
-    if @pubmedidsize && @pubmedidsize < 100
-      @pubmedids = @ids
-    end  
+  begin
+    if @gurl
+      pubmed_search()
+      @mindate = @pubmed_id[:mindate]
+      @maxdate = @pubmed_id[:maxdate]
+      @timeover = @tover
+      @pubmedidsize = @pubmed_id[:size]
+      if @pubmedidsize && @pubmedidsize < 100
+        @pubmedids = @ids
+      end  
+    end      
+  rescue => exception
+    # PASS
   end
 
   erb :index
