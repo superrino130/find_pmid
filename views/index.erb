@@ -24,7 +24,7 @@
 ------- PubMed -------<br>
   <%= "from " + @mindate if @mindate %><%= " to " + @maxdate if @maxdate %><br>
   <%= @pubmedidsize.to_s.concat(' Papers Hit') if @pubmedidsize %><br>
-  <%= "TimeOver" if @TimeOver %>
+  <%= "Request Timeout" if @TimeOver %>
   <% if @pubmedids %>
   <% @pubmedids.sort_by{ -_2.size }.each do |k, v| %>
   <a href=<%= "http://www.ncbi.nlm.nih.gov/pubmed/" + k %> target="_blank" rel="noopener noreferrer"><%= k %></a><br>

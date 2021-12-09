@@ -30,6 +30,7 @@ def get_jpost(id)
     end
     page = @agent.get(jpost_rev(id, rev))
     f = true
+    sleep 0.1
   end
 
   begin
@@ -136,7 +137,8 @@ def pubmed_search()
   @ids.each do |k, v|
     @ids[k] = keywords_count(k, v)
     sleep 0.5
-    if Time.now - stime > 10
+    if Time.now - stime > 20
+      p Time.now
       @tover = true
       break
     end
