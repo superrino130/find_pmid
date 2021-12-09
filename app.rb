@@ -136,7 +136,7 @@ def pubmed_search()
   @ids.each do |k, v|
     @ids[k] = keywords_count(k, v)
     sleep 0.5
-    if Time.now - stime > 25
+    if Time.now - stime > 20
       @tover = true
       break
     end
