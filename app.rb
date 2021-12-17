@@ -132,15 +132,16 @@ def pubmed_search()
   end
   @ids = @ids.sort[0...100].to_h
   @pubmed_id[:size] = @ids.size
+  @ids_title = {}
 
   @ids.each do |k, v|
     @ids[k] = keywords_count(k, v)
     sleep 0.5
   end
   
-  @ids.sort_by{ -_2.size }.each do |k, v|
-    @ids.delete(k) if v.size == 1 && v != ['pi+sm']
-  end  
+  # @ids.sort_by{ -_2.size }.each do |k, v|
+  #   @ids.delete(k) if v.size == 1 && v != ['pi+sm']
+  # end  
 end
 
 def keywords_count(id, v)
@@ -157,6 +158,7 @@ def keywords_count(id, v)
   end
   medlines.each do |x|
     s = x.ab.upcase  # abstract
+    @ids_title[id] = x.ti
   end
   @keywords.each do |x|
     if s.include?(x.upcase)
@@ -188,6 +190,7 @@ post '/jpost_search' do
         @pubmedidsize = @pubmed_id[:size]
         if @pubmedidsize && @pubmedidsize < 100
           @pubmedids = @ids
+          @pubmedids_title = @ids_title
         end  
       end      
     rescue => exception

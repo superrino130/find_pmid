@@ -26,7 +26,8 @@
   <%= @pubmedidsize.to_s.concat(' Papers Hit') if @pubmedidsize %><br>
   <% if @pubmedids %>
   <% @pubmedids.sort_by{ -_2.size }.each do |k, v| %>
-  <a href=<%= "http://www.ncbi.nlm.nih.gov/pubmed/" + k %> target="_blank" rel="noopener noreferrer"><%= k %></a><br>
+  <a href=<%= "http://www.ncbi.nlm.nih.gov/pubmed/" + k %> target="_blank" rel="noopener noreferrer"><%= k %></a>
+  <%= @pubmedids_title[k] %><br>
   <%= v %><br>
   <% end %>
   <% end %>
