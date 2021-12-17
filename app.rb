@@ -134,6 +134,7 @@ def pubmed_search()
     end
     sleep 0.5
   end
+  @ids = @ids.sort_by{ _1 }[0...100]
   @pubmed_id[:size] = @ids.size
 
   @tover = false
