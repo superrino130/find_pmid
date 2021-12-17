@@ -20,7 +20,7 @@ def get_jpost(id)
   @agent.user_agent_alias = 'Windows Mozilla'
   page = ''
   f = false
-  100.times do |rev|
+  20.times do |rev|
     if @agent.get(jpost_rev(id, rev)).search('title')[0].to_s.include?('jPOSTrepo')
       if f
         break
@@ -30,10 +30,6 @@ def get_jpost(id)
     end
     page = @agent.get(jpost_rev(id, rev))
     f = true
-    if Time.now - @stime > 25
-      @tover = true
-      break
-    end
     sleep 0.1
   end
 
@@ -137,14 +133,9 @@ def pubmed_search()
   @ids = @ids.sort_by{ _1 }[0...100]
   @pubmed_id[:size] = @ids.size
 
-  @tover = false
   @ids.each do |k, v|
     @ids[k] = keywords_count(k, v)
     sleep 0.5
-    if Time.now - @stime > 25
-      @tover = true
-      break
-    end
   end
   
   @ids.sort_by{ -_2.size }.each do |k, v|
@@ -176,7 +167,6 @@ def keywords_count(id, v)
 end
 
 post '/jpost_search' do
-  @stime = Time.now
   @jpost_info = {}
   get_jpost(params[:inputedid])
   if @jpost_info && @jpost_info.size > 1
@@ -195,7 +185,6 @@ post '/jpost_search' do
         pubmed_search()
         @mindate = @pubmed_id[:mindate]
         @maxdate = @pubmed_id[:maxdate]
-        @timeover = @tover
         @pubmedidsize = @pubmed_id[:size]
         if @pubmedidsize && @pubmedidsize < 100
           @pubmedids = @ids
