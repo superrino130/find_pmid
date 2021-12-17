@@ -130,7 +130,7 @@ def pubmed_search()
     end
     sleep 0.5
   end
-  @ids = @ids.sort_by{ _1 }[0...100]
+  @ids = @ids.sort[0...100].to_h
   @pubmed_id[:size] = @ids.size
 
   @ids.each do |k, v|
